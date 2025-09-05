@@ -1,0 +1,9 @@
+{
+  "name": "modulus",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/krebinkkj/modulus",
+  "author": "Torkov <Torkov@arch>",
+  "license": "MIT",
+  "private": true
+}
