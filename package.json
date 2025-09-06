@@ -1,16 +1,22 @@
 {
-  "name": "modulus",
+  "name": "@tarkov/modulus",
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/krebinkkj/modulus",
   "author": "Torkov <Torkov@arch>",
   "license": "MIT",
-  "private": true,
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@commitlint/types": "^19.8.1",
     "@eslint/js": "^9.35.0",
+    "@semantic-release/commit-analyzer": "^13.0.1",
+    "@semantic-release/github": "^11.0.5",
+    "@semantic-release/npm": "^12.0.2",
+    "@semantic-release/release-notes-generator": "^14.1.0",
     "@types/node": "^24.3.1",
     "@typescript-eslint/eslint-plugin": "^8.42.0",
     "@typescript-eslint/parser": "^8.42.0",
@@ -19,6 +25,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.1.6",
     "prettier": "^3.6.2",
+    "semantic-release": "^24.2.7",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.42.0"
   },
