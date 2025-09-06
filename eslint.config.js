@@ -12,6 +12,8 @@ module.exports = ts.config(
             'dist/**',
             'coverage/**',
             '**/__tests__/**',
+            '*.config.js',
+            '*.cjs'
         ],
     }
 );

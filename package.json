@@ -5,5 +5,30 @@
   "repository": "https://github.com/krebinkkj/modulus",
   "author": "Torkov <Torkov@arch>",
   "license": "MIT",
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "@commitlint/types": "^19.8.1",
+    "@eslint/js": "^9.35.0",
+    "@types/node": "^24.3.1",
+    "@typescript-eslint/eslint-plugin": "^8.42.0",
+    "@typescript-eslint/parser": "^8.42.0",
+    "eslint": "^9.35.0",
+    "eslint-config-prettier": "^10.1.8",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.6",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.42.0"
+  },
+  "scripts": {
+    "prepare": "husky",
+    "lint": "eslint . --ext .ts,.js --fix",
+    "format": "prettier --write ."
+  },
+  "lint-staged": {
+    "*.{ts,js}": "yarn lint",
+    "{ts,js,json,md,yaml}": "yarn format"
+  }
 }
