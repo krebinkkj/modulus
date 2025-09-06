@@ -1,71 +1,38 @@
-name: Pull Request Automation
+name: PR
 
 on:
-    pull_request_target:
-        types: [opened, edited, synchronize]
+  pull_request:
+    types: [opened, edited, synchronize]
+  pull_request_target:
+    types: [closed]
 
 jobs:
-    check-pr-title:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Check PR Title
-              uses: amannn/action-semantic-pull-request@v5
-              with:
-                scopes: 'buid, ci, docs, feat, fix, refactor, style, test'
+  check-pr-title:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          
+      - name: Check PR Title
+        uses: amannn/action-semantic-pull-request@v5
+        id: lint_pr_title
+        with:
+          scopes: 'build, ci, docs, feat, fix, refactor, style, test'
 
-    label-pr:
-        runs-on: ubuntu-latest
-        permissions:
-            contents: read
-            pull-requests: write
-        steps:
-            - name: Label Pull Request
-              uses: actions/labeler@v4
-              with: 
-                repo-token: ${{ secrets.GH_TOKEN }}
-                sync-labels: true
-
-    assign-pr:
-        runs-on: ubuntu-latest
-        permissions:
-            pull-requests: write
-        steps:
-            - name: Assign PR to Author
-              uses: actions/github-script@v6
-              with:
-                script: |
-                        github.rest.issues.addAssignees({
-                            owner: context.repo.owner,
-                            repo: context.repo.repo,
-                            issue_number: context.issue.number,
-                            assignees: [context.payload.pull_request.user.login]
-                        });
-
-    delete-merged-branch:
-        runs-on: ubuntu-latest
-        if: github.event.pull_request.merged == true
-        permissions:
-            contents: write
-        steps:
-            - name: Delete Merged Branch
-              uses: actions/github-script@v6
-              with:
-                script: |
-                    github.rest.git.deleteRef({
-                        owner: context.repo.owner,
-                        repo: context.repo.repo,
-                        ref: 'heads/${{ github.event.pull_request.head.ref }}'
-                    });
-
-    sync-pr:
-        runs-on: ubuntu-latest
-        if: github.event.pull_request.draft == false
-        permissions:
-            contents: write
-        steps:
-            - name: Sync Pull Request
-              uses: repo-sync/pull-request@v2
-              with:
-                github_token: ${{ secrets.GH_TOKEN }}
-                source_branch: ${{ github.head_ref }}
-                destination_branch: ${{ github.base_ref }}
+  delete-merged-branch:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    permissions:
+      contents: write
+    steps:
+      - name: Delete Merged Branch
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.git.deleteRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: 'heads/${{ github.event.pull_request.head.ref }}'
+            });
