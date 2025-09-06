@@ -1,0 +1,30 @@
+name: Continuos Integration
+
+on:
+    push:
+        branches:
+            - main
+            - develop
+    pull_request:
+
+jobs:
+    lint-and-test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                node-version: '20'
+                cache: 'yarn'
+
+            - name: Install Dependencies
+              run: yarn install --immutable
+
+            - name: Run ESLint
+              run: yarn lint
+
+            - name: Run Tests
+              run: yarn test

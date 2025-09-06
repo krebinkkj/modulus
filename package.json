@@ -23,6 +23,7 @@
     "typescript-eslint": "^8.42.0"
   },
   "scripts": {
+    "test": "ls",
     "prepare": "husky",
     "lint": "eslint . --ext .ts,.js --fix",
     "format": "prettier --write ."
