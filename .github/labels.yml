@@ -1,0 +1,17 @@
+enchancement:
+  - 'feat/*'
+bug:
+  - 'fix/*'
+chore:
+  - 'chore/*'
+  - 'ci/*'
+  - 'build/*'
+
+documentation:
+  - 'docs/*'
+refactor: 
+  - 'refactor/*'
+style:
+  - 'style/*'
+test:
+  - 'test/*'
